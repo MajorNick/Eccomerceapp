@@ -1,7 +1,14 @@
 package main
 
-import "Europe/internal/cmd"
+import (
+	"Europe/internal/cmd"
+	cache "Europe/internal/cache"
+	
+)
 
 func main() {
-    cmd.Test()
+	cache.Init()
+	for{
+    	cmd.ParseConsole()
+	}
 }
