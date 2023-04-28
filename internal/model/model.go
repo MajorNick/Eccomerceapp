@@ -6,5 +6,10 @@ type Product struct{
 	Id string
 	Price int
 	Name string
-	History map[int]int
+	PurchHistory []*Trans
+	OrderHistory []*Trans
+}
+type Trans struct{
+	Price int
+	Quantity int
 }
