@@ -26,7 +26,7 @@ func AddInDataStore(id string,name string,price int) {
 		Name:name,
 		Price:price,
 		Quantity:0,
-		 
+		Ordered: 0,
 		PurchHistory: &[]*model.Trans{},
 		OrderHistory: &[]*model.Trans{},
 	}
@@ -39,6 +39,22 @@ func FindFewest() (string,error){
 	for _,v := range data{
 		if quant>v.Quantity{
 			quant = v.Quantity
+			answ = v.Name
+		}
+	}
+	if quant == math.MaxInt64{
+		return "",errors.New("Products Not Added")
+	}else{
+		return answ,nil
+	}
+}
+
+func FindPopular() (string,error){
+	answ := ""
+	quant := math.MinInt64
+	for _,v := range data{
+		if quant<v.Quantity{
+			quant = v.Ordered
 			answ = v.Name
 		}
 	}

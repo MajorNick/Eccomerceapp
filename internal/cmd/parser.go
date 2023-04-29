@@ -24,13 +24,12 @@ func ParseConsole ()(string,error){
 
 func callFunction(arguments []string){
 	if len(arguments)==0{
+		
 		return
 	}
 	switch arguments[0]{
 	case "save_product":
-		if len(arguments) != 4{
-			fmt.Println("Wrong number of Arguments")
-		}
+		wrong_arguments(len(arguments),4)
 		
 		price,err :=strconv.Atoi(arguments[3])
 		if err!=nil{
@@ -40,9 +39,7 @@ func callFunction(arguments []string){
 		}
 
 	case "purchase_product":
-		if len(arguments) != 4{
-			fmt.Println("Wrong number of Arguments")
-		}
+		wrong_arguments(len(arguments),4)
 		quantity,err :=strconv.Atoi(arguments[2])
 		if err!=nil{
 			fmt.Println("ERROR IN purchase_product command,  quantity must be integer")
@@ -53,6 +50,7 @@ func callFunction(arguments []string){
 		}
 		purchase_product(arguments[1],quantity,price)
 	case "order_product":
+		wrong_arguments(len(arguments),3)
 		quantity,err :=strconv.Atoi(arguments[2])
 		if err!=nil{
 			fmt.Println("ERROR IN order_product command,  quantity must be integer")
@@ -61,30 +59,29 @@ func callFunction(arguments []string){
 		}
 		
 	case "get_quantity_of_product":
-		if len(arguments) != 2{
-			fmt.Println("Wrong number of Arguments")
-		}
+		wrong_arguments(len(arguments),2)
 		get_quantity_of_product(arguments[1])
 	case "get_average_price":
-		if len(arguments) != 2{
-			fmt.Println("Wrong number of Arguments")
-		}
+		wrong_arguments(len(arguments),2)
 		get_average_price(arguments[1])
 	case "get_product_profit":
-		if len(arguments) != 2{
-			fmt.Println("Wrong number of Arguments")
-		}
+		wrong_arguments(len(arguments),2)
 		get_product_profit(arguments[1])
 	case "get_fewest_product":
-		if len(arguments) != 1{
-			fmt.Println("Wrong number of Arguments")
-		}
+		wrong_arguments(len(arguments),1)
 		get_fewest_product()
 	case "get_most_popular_product":
-
+		wrong_arguments(len(arguments),1)
+		get_most_popular_product()
 	default:
 		fmt.Println("Enter Valid Command")
 	}
 
 
+}
+
+func wrong_arguments(current,expected int){
+	if current != expected{
+		fmt.Println("Wrong number of Arguments")
+	} 
 }

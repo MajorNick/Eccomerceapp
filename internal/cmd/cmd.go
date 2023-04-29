@@ -33,7 +33,7 @@ func order_product(id string, quantity int) {
 		prod.Quantity -= quantity
 		fmt.Printf("You have succesfuly bought product with id: %s with quantity of:%d\n", id, quantity)
 	}
-
+	prod.Ordered += quantity
 	*prod.OrderHistory = append(*prod.OrderHistory, &model.Trans{Quantity: quantity, Price: prod.Price})
 }
 func purchase_product(id string, quantity int, price int) {
@@ -97,10 +97,14 @@ func get_product_profit(id string) {
 func get_fewest_product() {
 	fewest,err := cache.FindFewest()
 	if err != nil{
-		fmt.Println(fewest)
+		fmt.Println(err)
 	}
 	fmt.Println("currently fewest number of product has: ",fewest)
 }
 func get_most_popular_product() {
-
+	popular,err := cache.FindPopular()
+	if err != nil{
+		fmt.Println(err)
+	}
+	fmt.Println("currently Most Popular Product Is: ",popular)
 }
