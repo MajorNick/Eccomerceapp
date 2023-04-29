@@ -1,7 +1,9 @@
 package internal
-import(
+
+import (
 	model "Europe/internal/model"
 	"errors"
+	"math"
 )
 var data map[string]*model.Product
 var ErrorNotExists error = errors.New("data: No Matching Product found")
@@ -25,9 +27,25 @@ func AddInDataStore(id string,name string,price int) {
 		Price:price,
 		Quantity:0,
 		 
-		PurchHistory: make([]*model.Trans,2),
-		OrderHistory: make([]*model.Trans,2),
+		PurchHistory: &[]*model.Trans{},
+		OrderHistory: &[]*model.Trans{},
 	}
 	data[id] = &prod
+}
+
+func FindFewest() (string,error){
+	answ := ""
+	quant := math.MaxInt64
+	for _,v := range data{
+		if quant>v.Quantity{
+			quant = v.Quantity
+			answ = v.Name
+		}
+	}
+	if quant == math.MaxInt64{
+		return "",errors.New("Products Not Added")
+	}else{
+		return answ,nil
+	}
 }
 

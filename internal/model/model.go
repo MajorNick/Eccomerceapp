@@ -6,8 +6,8 @@ type Product struct{
 	Id string
 	Price int
 	Name string
-	PurchHistory []*Trans
-	OrderHistory []*Trans
+	PurchHistory *[]*Trans
+	OrderHistory *[]*Trans
 }
 type Trans struct{
 	Price int

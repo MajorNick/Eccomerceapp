@@ -23,6 +23,9 @@ func ParseConsole ()(string,error){
 }
 
 func callFunction(arguments []string){
+	if len(arguments)==0{
+		return
+	}
 	switch arguments[0]{
 	case "save_product":
 		if len(arguments) != 4{
@@ -68,9 +71,15 @@ func callFunction(arguments []string){
 		}
 		get_average_price(arguments[1])
 	case "get_product_profit":
-
+		if len(arguments) != 2{
+			fmt.Println("Wrong number of Arguments")
+		}
+		get_product_profit(arguments[1])
 	case "get_fewest_product":
-
+		if len(arguments) != 1{
+			fmt.Println("Wrong number of Arguments")
+		}
+		get_fewest_product()
 	case "get_most_popular_product":
 
 	default:
