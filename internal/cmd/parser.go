@@ -73,6 +73,8 @@ func callFunction(arguments []string){
 	case "get_most_popular_product":
 		wrong_arguments(len(arguments),1)
 		get_most_popular_product()
+	case "exit":
+		os.Exit(0)
 	default:
 		fmt.Println("Enter Valid Command")
 	}
