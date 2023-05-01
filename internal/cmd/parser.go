@@ -29,7 +29,9 @@ func callFunction(arguments []string){
 	}
 	switch arguments[0]{
 	case "save_product":
-		wrong_arguments(len(arguments),4)
+		if wrong_arguments(len(arguments),4){
+			return
+		}
 		
 		price,err :=strconv.Atoi(arguments[3])
 		if err!=nil{
@@ -39,7 +41,9 @@ func callFunction(arguments []string){
 		}
 
 	case "purchase_product":
-		wrong_arguments(len(arguments),4)
+		if wrong_arguments(len(arguments),4){
+			return
+		}
 		quantity,err :=strconv.Atoi(arguments[2])
 		if err!=nil{
 			fmt.Println("ERROR IN purchase_product command,  quantity must be integer")
@@ -50,7 +54,9 @@ func callFunction(arguments []string){
 		}
 		purchase_product(arguments[1],quantity,price)
 	case "order_product":
-		wrong_arguments(len(arguments),3)
+		if wrong_arguments(len(arguments),3){
+			return
+		}
 		quantity,err :=strconv.Atoi(arguments[2])
 		if err!=nil{
 			fmt.Println("ERROR IN order_product command,  quantity must be integer")
@@ -59,19 +65,29 @@ func callFunction(arguments []string){
 		}
 		
 	case "get_quantity_of_product":
-		wrong_arguments(len(arguments),2)
+		if wrong_arguments(len(arguments),2){
+			return
+		}
 		get_quantity_of_product(arguments[1])
 	case "get_average_price":
-		wrong_arguments(len(arguments),2)
+		if wrong_arguments(len(arguments),2){
+			return
+		}
 		get_average_price(arguments[1])
 	case "get_product_profit":
-		wrong_arguments(len(arguments),2)
+		if wrong_arguments(len(arguments),2){
+			return
+		}
 		get_product_profit(arguments[1])
 	case "get_fewest_product":
-		wrong_arguments(len(arguments),1)
+		if wrong_arguments(len(arguments),1){
+			return
+		}
 		get_fewest_product()
 	case "get_most_popular_product":
-		wrong_arguments(len(arguments),1)
+		if wrong_arguments(len(arguments),1){
+			return
+		}
 		get_most_popular_product()
 	case "exit":
 		os.Exit(0)
@@ -82,8 +98,11 @@ func callFunction(arguments []string){
 
 }
 
-func wrong_arguments(current,expected int){
+func wrong_arguments(current,expected int) bool{
 	if current != expected{
 		fmt.Println("Wrong number of Arguments")
-	} 
+
+		return true
+	}
+	return false 
 }

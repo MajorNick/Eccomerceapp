@@ -21,29 +21,21 @@ func GetProductById(id string)(*model.Product,error){
 }
 
 func AddInDataStore(id string,name string,price int) {
-	prod := model.Product{
-		Id:id,
-		Name:name,
-		Price:price,
-		Quantity:0,
-		Ordered: 0,
-		PurchHistory: &[]*model.Trans{},
-		OrderHistory: &[]*model.Trans{},
-	}
-	data[id] = &prod
+
+	data[id] = model.CreateProdInstance(id,price,name)
 }
 
 func FindFewest() (string,error){
 	answ := ""
 	quant := math.MaxInt64
 	for _,v := range data{
-		if quant>v.Quantity{
-			quant = v.Quantity
-			answ = v.Name
+		if quant>v.GetQuantity(){
+			quant = v.GetQuantity()
+			answ = v.GetName()
 		}
 	}
 	if quant == math.MaxInt64{
-		return "",errors.New("Products Not Added")
+		return "",errors.New("products not added")
 	}else{
 		return answ,nil
 	}
@@ -53,13 +45,13 @@ func FindPopular() (string,error){
 	answ := ""
 	quant := math.MinInt64
 	for _,v := range data{
-		if quant<v.Quantity{
-			quant = v.Ordered
-			answ = v.Name
+		if quant<v.GetQuantity(){
+			quant = v.GetNumberOfOrdered()
+			answ = v.GetName()
 		}
 	}
 	if quant == math.MaxInt64{
-		return "",errors.New("Products Not Added")
+		return "",errors.New("products not added")
 	}else{
 		return answ,nil
 	}
