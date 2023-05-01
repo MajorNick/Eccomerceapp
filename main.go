@@ -8,6 +8,7 @@ import (
 
 func main() {
 	cache.Init()
+	cmd.Help()
 	for{
     	cmd.ParseConsole()
 	}

@@ -12,6 +12,7 @@ func save_product(id string, name string, price int) {
 		if err == cache.ErrorNotExists {
 			cache.AddInDataStore(id, name, price)
 			fmt.Println("Product Succesfully added!")
+			fmt.Println()
 		} else {
 			fmt.Println(err)
 		}
@@ -19,6 +20,7 @@ func save_product(id string, name string, price int) {
 	}
 	product.ChangePrice(price,name)
 	fmt.Println("Product Price Succesfully Changed!")
+	fmt.Println()
 }
 func order_product(id string, quantity int) {
 	prod, err := cache.GetProductById(id)
@@ -27,11 +29,11 @@ func order_product(id string, quantity int) {
 		return
 	}
 	if prod.GetQuantity() < quantity {
-		fmt.Printf("There is only %d left on balance, we are temporarily unable to sell you the remaining %d\n", prod.GetQuantity(), quantity-prod.GetQuantity())
+		fmt.Printf("There is only %d left on balance, we are temporarily unable to sell you the remaining %d\n\n", prod.GetQuantity(), quantity-prod.GetQuantity())
 		prod.ChangeQuantity(0) 
 	} else {
 		prod.ChangeQuantity(prod.GetQuantity()-quantity) 
-		fmt.Printf("You have succesfuly bought product with id: %s with quantity of:%d\n", id, quantity)
+		fmt.Printf("You have succesfuly bought product with id: %s with quantity of:%d\n\n", id, quantity)
 	}
 	prod.AddNumberOfOrdered(quantity) 
 	prod.AppendOrderHistory(quantity)
@@ -45,7 +47,7 @@ func purchase_product(id string, quantity int, price int) {
 	}
 	prod.AppendPurchaseHistory(price,quantity)
 	prod.ChangeQuantity(prod.GetQuantity()+quantity) 
-	fmt.Printf("A purchase of %d units of product with ID %s was made at a price of %d each.\n", quantity, id, price)
+	fmt.Printf("A purchase of %d units of product with ID %s was made at a price of %d each.\n\n", quantity, id, price)
 }
 
 func get_quantity_of_product(id string) {
@@ -54,7 +56,7 @@ func get_quantity_of_product(id string) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("Quantity of product: %s is: %d\n", id, prod.GetQuantity())
+	fmt.Printf("Quantity of product: %s is: %d\n\n", id, prod.GetQuantity())
 }
 func get_average_price(id string) float64 {
 	prod, err := cache.GetProductById(id)
@@ -64,13 +66,14 @@ func get_average_price(id string) float64 {
 	}
 
 	var k float64 = prod.AverageOrderedPrice()
-	fmt.Printf("Average price of ordered Product with ID:%s is: %2f\n", id, k)
+	fmt.Printf("Average price of ordered Product with ID:%s is: %2f\n\n", id, k)
 	return k
 }
 func get_product_profit(id string) {
 	prod, err := cache.GetProductById(id)
 	if err != nil {
 		fmt.Println(err)
+		fmt.Println()
 		return
 	}
 	order_profit := get_average_price(id)
@@ -81,6 +84,7 @@ func get_product_profit(id string) {
 	profit_per_1 := order_profit - purch_lose
 	fmt.Printf("Average price of Purchased Product with ID:%s is: %2f\n", id, purch_lose)
 	fmt.Println("Profit is: ", profit_per_1*float64(prod.GetNumberOfOrdered()))
+	fmt.Println()
 }
 func get_fewest_product() {
 	fewest,err := cache.FindFewest()
@@ -88,6 +92,7 @@ func get_fewest_product() {
 		fmt.Println(err)
 	}
 	fmt.Println("currently fewest number of product has: ",fewest)
+	fmt.Println()
 }
 func get_most_popular_product() {
 	popular,err := cache.FindPopular()
@@ -95,4 +100,5 @@ func get_most_popular_product() {
 		fmt.Println(err)
 	}
 	fmt.Println("currently Most Popular Product Is: ",popular)
+	fmt.Println()
 }

@@ -93,9 +93,23 @@ func callFunction(arguments []string){
 		os.Exit(0)
 	default:
 		fmt.Println("Enter Valid Command")
+		Help()
 	}
 
 
+}
+func Help(){
+	fmt.Println(`
+Use this commands:
+save_product {product_id} {product_name} {price}
+purchase_product {product_id} {quantity} {price}
+order_product {product_id} {quantity}
+get_quantity_of_product {product_id}
+get_average_price {product_id}
+get_product_profit {product_id}
+get_fewest_product
+get_most_popular_product
+`)
 }
 
 func wrong_arguments(current,expected int) bool{
