@@ -33,7 +33,7 @@ func order_product(id string, quantity int) {
 		prod.ChangeQuantity(0) 
 	} else {
 		prod.ChangeQuantity(prod.GetQuantity()-quantity) 
-		fmt.Printf("You have succesfuly bought product with id: %s with quantity of:%d\n\n", id, quantity)
+		fmt.Printf("You have successfully sold product with id: %s with quantity of:%d\n\n", id, quantity)
 	}
 	prod.AddNumberOfOrdered(quantity) 
 	prod.AppendOrderHistory(quantity)

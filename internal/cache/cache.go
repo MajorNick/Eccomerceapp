@@ -10,6 +10,7 @@ var ErrorNotExists error = errors.New("data: No Matching Product found")
 func Init(){
 	data = make(map[string]*model.Product)
 	
+	
 }
 func GetProductMap()map[string]*model.Product{
 	return data
