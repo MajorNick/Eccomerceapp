@@ -1,5 +1,5 @@
 # Ecommerce Console Application
-This is a console-based ecommerce application that allows users to manage products, purchase and order products, and view product information. The application is built using [insert programming language and technology used].
+This is a console-based ecommerce application that allows users to manage products, purchase and order products, and view product information. The application is built using Go.
 
 # Getting Started
 To get started with the application, follow these steps:
