@@ -66,7 +66,6 @@ func get_average_price(id string) float64 {
 	}
 
 	var k float64 = prod.AverageOrderedPrice()
-	fmt.Printf("Average price of ordered Product with ID:%s is: %2f\n\n", id, k)
 	return k
 }
 func get_product_profit(id string) {
@@ -101,4 +100,23 @@ func get_most_popular_product() {
 	}
 	fmt.Println("currently Most Popular Product Is: ",popular)
 	fmt.Println()
+}
+
+func get_orders_report(){
+	data := cache.GetProductMap()
+	for id,val := range data{
+		fmt.Printf("Orders Report for product with id: %s\n",id)
+		orderHistory := val.GetOrdersHistory()
+		COGS := val.AveragePurchasePrice()
+		for i,trans := range orderHistory{
+			fmt.Printf("\t%d)Product Id: %s,Product Name: %s, Selling Price: %d,Quantity: %d,COGS: %f\n",
+			i,
+			val.GetId(),
+			val.GetName(),
+			trans.GetTransPrice(),
+			trans.GetTransQuantity(),
+			COGS)
+		}
+		
+	}
 }

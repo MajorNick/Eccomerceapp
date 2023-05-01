@@ -73,7 +73,9 @@ func callFunction(arguments []string){
 		if wrong_arguments(len(arguments),2){
 			return
 		}
-		get_average_price(arguments[1])
+
+		k := get_average_price(arguments[1])
+		fmt.Printf("Average price of ordered Product with ID:%s is: %2f\n\n", arguments[1], k)
 	case "get_product_profit":
 		if wrong_arguments(len(arguments),2){
 			return
@@ -89,6 +91,11 @@ func callFunction(arguments []string){
 			return
 		}
 		get_most_popular_product()
+	case "get_orders_report":
+		if wrong_arguments(len(arguments),1){
+			return
+		}
+		get_orders_report()
 	case "exit":
 		os.Exit(0)
 	default:

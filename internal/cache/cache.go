@@ -11,6 +11,9 @@ func Init(){
 	data = make(map[string]*model.Product)
 	
 }
+func GetProductMap()map[string]*model.Product{
+	return data
+}
 
 func GetProductById(id string)(*model.Product,error){
 	product,ok := data[id]

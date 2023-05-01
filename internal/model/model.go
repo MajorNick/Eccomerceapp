@@ -1,6 +1,6 @@
 package internal
 
-import "time"
+
 
 
 type Product struct{
@@ -16,7 +16,12 @@ type Product struct{
 type Trans struct{
 	price int
 	quantity int
-	timeStamp time.Time
+}
+func (t Trans)GetTransPrice()int{
+	return t.price
+}
+func (t Trans)GetTransQuantity()int{
+	return t.quantity
 }
 func CreateProdInstance(id string,price int,name string)*Product{
 	prod := Product{
@@ -29,6 +34,9 @@ func CreateProdInstance(id string,price int,name string)*Product{
 		orderHistory: &[]*Trans{},
 	}
 	return &prod
+}
+func (p *Product)GetId()string{
+	return p.id
 }
 func (p *Product)GetName()string{
 	return p.name
@@ -69,7 +77,8 @@ func (p* Product)AverageOrderedPrice()float64{
 		cnt += v.quantity
 		sum += v.price * v.quantity
 	}
-	return float64(sum/cnt)
+	var avg float64 = float64(sum)/float64(cnt)
+	return avg
 }
 func (p* Product)AveragePurchasePrice()float64{
 	cnt := 0
@@ -78,5 +87,10 @@ func (p* Product)AveragePurchasePrice()float64{
 		cnt += v.quantity
 		sum += v.price * v.quantity
 	}
-	return float64(sum/cnt)
+	var avg float64 = float64(sum)/float64(cnt)
+	return avg
 }
+func (p* Product)GetOrdersHistory()[]*Trans{
+	return *p.orderHistory
+}
+
