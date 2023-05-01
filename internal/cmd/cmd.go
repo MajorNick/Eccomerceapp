@@ -81,7 +81,7 @@ func get_product_profit(id string) {
 	purch_lose := prod.AveragePurchasePrice()
 
 	profit_per_1 := order_profit - purch_lose
-	fmt.Printf("Average price of Purchased Product with ID:%s is: %2f\n", id, purch_lose)
+	//fmt.Printf("Average price of Purchased Product with ID:%s is: %2f\n", id, purch_lose)
 	fmt.Println("Profit is: ", profit_per_1*float64(prod.GetNumberOfOrdered()))
 	fmt.Println()
 }
@@ -110,7 +110,7 @@ func get_orders_report(){
 		COGS := val.AveragePurchasePrice()
 		for i,trans := range orderHistory{
 			fmt.Printf("\t%d)Product Id: %s,Product Name: %s, Selling Price: %d,Quantity: %d,COGS: %f\n",
-			i,
+			i+1,
 			val.GetId(),
 			val.GetName(),
 			trans.GetTransPrice(),
