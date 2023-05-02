@@ -102,6 +102,7 @@ func get_fewest_product() {
 	fewest,err := cache.FindFewest()
 	if err != nil{
 		fmt.Println(err)
+		return 
 	}
 	fmt.Println("currently fewest number of product has: ",fewest)
 	fmt.Println()
@@ -112,6 +113,7 @@ func get_most_popular_product() {
 	popular,err := cache.FindPopular()
 	if err != nil{
 		fmt.Println(err)
+		return
 	}
 	fmt.Println("currently Most Popular Product Is: ",popular)
 	fmt.Println()
@@ -125,10 +127,11 @@ func get_orders_report(){
 		orderHistory := val.GetOrdersHistory()
 		COGS := val.AveragePurchasePrice()
 		for i,trans := range orderHistory{
-			fmt.Printf("\t%d)Product Id: %s,Product Name: %s, Selling Price: %d,Quantity: %d,COGS: %f\n",
+			fmt.Printf("\t%d)Product Id: %s,Product Name: %s,Average Purchase Price: %f, Selling Price: %d,Quantity: %d,COGS: %f\n",
 			i+1,
 			val.GetId(),
 			val.GetName(),
+			val.AveragePurchasePrice(),
 			trans.GetTransPrice(),
 			trans.GetTransQuantity(),
 			COGS)
@@ -136,6 +139,9 @@ func get_orders_report(){
 		
 	}
 }
+
+// using built in encoding/csv library to export data in csv file
+// turn every order to slice of string and then flush it using writer interface
 func export_orders_report(path string){
 	file, err := os.Create(path)
 	defer file.Close()
@@ -144,14 +150,14 @@ func export_orders_report(path string){
 	}
 	data := cache.GetProductMap()
 	writer := csv.NewWriter(file)
-	titles := []string{"ID","Name","Price","Quantity","COGS"}
+	titles := []string{"ID","Name","Average Purchase Price:","Price","Quantity","COGS"}
 	writer.Write(titles)
 	for _,val := range data{
 		
 		orderHistory := val.GetOrdersHistory()
-		COGS := val.AveragePurchasePrice()
+		avgPurch := val.AveragePurchasePrice()
 		for _,trans := range orderHistory{
-			row := []string{val.GetId(),val.GetName(),strconv.Itoa(trans.GetTransPrice()),strconv.Itoa(trans.GetTransQuantity()),strconv.FormatFloat(COGS,'f',3,64)}
+			row := []string{val.GetId(),val.GetName(),strconv.FormatFloat(avgPurch,'f',3,64),strconv.Itoa(trans.GetTransPrice()),strconv.Itoa(trans.GetTransQuantity()),strconv.FormatFloat(avgPurch,'f',3,64)}
 			writer.Write(row)
 
 		}

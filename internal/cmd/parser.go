@@ -123,7 +123,7 @@ get_product_profit {product_id}
 get_fewest_product
 get_most_popular_product
 get_orders_report
-export_orders_report {path}
+export_orders_report {path/file.csv}
 `)
 }
 

@@ -55,7 +55,7 @@ func FindPopular() (string,error){
 			answ = v.GetName()
 		}
 	}
-	if quant == math.MaxInt64{
+	if quant == math.MinInt64{
 		return "",errors.New("products not added")
 	}else{
 		return answ,nil
