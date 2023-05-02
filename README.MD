@@ -31,11 +31,11 @@ Example: **`get_quantity_of_product prod001`** returns 7
 
 **`get_average_price {product_id}`**: Calculate and display the average price of a specific product based on its purchase history.
 
-Example: **`get_average_price prod001`** returns 2750
+Example: **`get_average_price prod001`** returns 2800
 
 **`get_product_profit {product_id}`**: Calculate and display the profit earned from a specific product by comparing the average purchase price with the average order price.
 
-Example: **`get_product_profit prod001`** returns 33000
+Example: **`get_product_profit prod001`** returns 900
 
 **`get_fewest_product`**: Return the name of the product with the lowest remaining quantity. If there is more than one such product, return any one.
 
