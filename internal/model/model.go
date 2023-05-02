@@ -1,7 +1,7 @@
 package internal
 
 
-
+// product Struct and fn's to completely encapsulate this struct
 
 type Product struct{
 	quantity int

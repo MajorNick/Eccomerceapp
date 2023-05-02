@@ -16,12 +16,15 @@ func ParseConsole ()(string,error){
 	if err != nil {
 		return "", err
 	}
+	// to remove extra whitespaces in arguments
 	line = strings.TrimSpace(line)
 	arguments := strings.Fields(line)
 	callFunction(arguments)
 	return line, nil
 }
-
+// switch case for arguments[0] which is command and others are command arguments
+// if argumetns number not match our expectations not doing anything
+// if command isn't valid call Help function, which is  showing valid command and their arguments
 func callFunction(arguments []string){
 	if len(arguments)==0{
 		
@@ -39,7 +42,6 @@ func callFunction(arguments []string){
 		}else{
 			save_product(arguments[1],arguments[2],price)
 		}
-
 	case "purchase_product":
 		if wrong_arguments(len(arguments),4){
 			return
@@ -73,7 +75,6 @@ func callFunction(arguments []string){
 		if wrong_arguments(len(arguments),2){
 			return
 		}
-
 		k := get_average_price(arguments[1])
 		fmt.Printf("Average price of ordered Product with ID:%s is: %2f\n\n", arguments[1], k)
 	case "get_product_profit":
