@@ -138,16 +138,28 @@ func get_orders_report(){
 		}
 		
 	}
+	fmt.Println("Done.")
 }
 
 // using built in encoding/csv library to export data in csv file
 // turn every order to slice of string and then flush it using writer interface
 func export_orders_report(path string){
+	if len(path)<4{
+		fmt.Printf("Enter Valid Path. File Must be with .csv extension \n\n")
+		return
+	}
+	fileExt:= path[len(path)-4:]
+	if fileExt!= ".csv"{
+		fmt.Printf("Enter Valid file name  Must be with .csv extension got: %s\n\n",fileExt)
+		return
+	}
 	file, err := os.Create(path)
-	defer file.Close()
+	
 	if err != nil {
     	fmt.Println("Failed to create file:",err)
+		return 
 	}
+	defer file.Close()
 	data := cache.GetProductMap()
 	writer := csv.NewWriter(file)
 	titles := []string{"ID","Name","Average Purchase Price:","Price","Quantity","COGS"}
@@ -164,5 +176,5 @@ func export_orders_report(path string){
 		writer.Flush()
 		
 	}
-	
+	fmt.Println("Done.")
 }

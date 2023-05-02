@@ -1,7 +1,7 @@
 FROM golang:latest
 
-WORKDIR /eccomerce
-COPY . /eccomerce
+WORKDIR /ecommerce
+COPY . /ecommerce
 
 RUN go build -o main main.go
 
