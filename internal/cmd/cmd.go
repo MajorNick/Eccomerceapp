@@ -3,7 +3,10 @@ package cmd
 import (
 	cache "Europe/internal/cache"
 	_ "Europe/internal/model"
+	"encoding/csv"
 	"fmt"
+	"os"
+	"strconv"
 )
 
 func save_product(id string, name string, price int) {
@@ -102,6 +105,7 @@ func get_most_popular_product() {
 	fmt.Println()
 }
 
+
 func get_orders_report(){
 	data := cache.GetProductMap()
 	for id,val := range data{
@@ -119,4 +123,28 @@ func get_orders_report(){
 		}
 		
 	}
+}
+func export_orders_report(path string){
+	file, err := os.Create(path)
+	defer file.Close()
+	if err != nil {
+    	fmt.Println("Failed to create file:",err)
+	}
+	data := cache.GetProductMap()
+	writer := csv.NewWriter(file)
+	titles := []string{"ID","Name","Price","Quantity","COGS"}
+	writer.Write(titles)
+	for _,val := range data{
+		
+		orderHistory := val.GetOrdersHistory()
+		COGS := val.AveragePurchasePrice()
+		for _,trans := range orderHistory{
+			row := []string{val.GetId(),val.GetName(),strconv.Itoa(trans.GetTransPrice()),strconv.Itoa(trans.GetTransQuantity()),strconv.FormatFloat(COGS,'f',3,64)}
+			writer.Write(row)
+
+		}
+		writer.Flush()
+		
+	}
+	
 }

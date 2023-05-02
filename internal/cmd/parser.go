@@ -96,6 +96,11 @@ func callFunction(arguments []string){
 			return
 		}
 		get_orders_report()
+	case "export_orders_report":
+		if wrong_arguments(len(arguments),2){
+			return
+		}
+		export_orders_report(arguments[1])
 	case "exit":
 		os.Exit(0)
 	default:
@@ -117,6 +122,7 @@ get_product_profit {product_id}
 get_fewest_product
 get_most_popular_product
 get_orders_report
+export_orders_report {path}
 `)
 }
 
